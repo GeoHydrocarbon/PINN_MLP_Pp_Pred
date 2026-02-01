@@ -1,165 +1,108 @@
-# PINN_MLP_Pp_Pred  
-Physics-Informed Neural Network and MLP for Pore Pressure Prediction Using Eaton’s Equation  
+# PINN-MLP Pore Pressure Prediction
 
-This repository provides a hybrid **MLP + Physics-Informed Neural Network (PINN)** framework for predicting pore pressure (Pp) from well logs by embedding **Eaton’s effective stress relationship** as a physical constraint.
+Repository: GeoHydrocarbon/PINN_MLP_Pp_Pred
 
-The method combines:
+## 1. Overview
 
-• Data-driven regression via multilayer perceptron (MLP)  
-• Physics-based regularization using Eaton’s pore pressure formulation  
-• Bayesian hyperparameter optimization  
+This repository implements a Physics-Informed Multi-Layer Perceptron (PINN-MLP) framework for pore pressure (Pp) prediction using well-log data.
 
-This approach improves prediction robustness in scenarios with sparse pressure measurements, which are common in subsurface engineering.
+The model combines:
+- A data-driven MLP
+- Physics-based regularization (PINN)
 
----
-
-## 🔬 Method Overview
-
-The neural network learns the mapping:
-
-\[
-\hat{P}_p = f_\theta(z, AC, \rho, I_p)
-\]
-
-where:
-
-- \(z\): depth  
-- \(AC\): acoustic slowness  
-- \(\rho\): density  
-- \(I_p\): P-impedance  
-
-### Physics-Informed Constraint (Eaton Equation)
-
-Eaton’s pore pressure model is expressed as:
-
-\[
-P_p = P_o - (P_o - P_n) \left(\frac{X}{X_n}\right)^m
-\]
-
-where:
-
-- \(P_o\): overburden stress  
-- \(P_n\): normal hydrostatic pressure  
-- \(X\): observed log value (e.g., sonic slowness)  
-- \(X_n\): normal compaction trend (NCT)  
-- \(m\): Eaton exponent  
-
-The PINN loss function becomes:
-
-\[
-\mathcal{L} = \mathcal{L}_{data} + \lambda \mathcal{L}_{Eaton}
-\]
-
-forcing the neural network to honor geomechanical consistency while learning from data.
+to improve generalization performance, especially in data-limited scenarios such as single-well training.
 
 ---
 
-## 📁 Repository Structure
+## 2. Repository Structure
+
 PINN_MLP_Pp_Pred/
-│
+├── train.py
+├── predict.py
+├── bayes_opt.py
+├── config.yaml
+├── models/
+│ ├── mlp_phy.py
+│ ├── lstm_phy.py
+│ ├── registry.json
+│ └── scaler.pkl
 ├── data/
-│ └── processed/ # Preprocessed well log & pressure datasets
-│
-├── models/ # Neural network architectures
-│
-├── utils/ # Physics loss & helper functions
-│
-├── checkpoints/ # Trained model weights
-│
-├── runs/ # Training logs & metrics
-│
-├── bayes_opt.py # Bayesian hyperparameter tuning
-├── train.py # Model training
-├── predict.py # Inference and prediction
-├── config.yaml # Model and data configuration
-└── README.md
+│ └── processed/
+├── checkpoints/
+└── runs/
+
 
 ---
 
-## 📥 Input & Output
+## 3. Data Description
 
-### Input Features
+### 3.1 Input Features
 
-Default input vector:
-[Depth, Acoustic Slowness, Density, P-impedance]
-### Output
+The following well-log features are used as model inputs:
 
-Predicted pore pressure (Pp)
+| Feature | Description |
+|--------|------------|
+| Depth  | Measured depth (m) |
+| AC     | Acoustic slowness (μs/ft) |
+| DEN    | Bulk density (g/cm³) |
+| Ip     | P-wave impedance |
 
+### 3.2 Target Variable
 
-Feature combinations can be modified in `config.yaml`.
+- **Pp**: Pore pressure (MPa)
 
 ---
 
-## ⚙️ Installation
+## 4. Model Description
 
-```bash
-git clone https://github.com/GeoHydrocarbon/PINN_MLP_Pp_Pred.git
-cd PINN_MLP_Pp_Pred
+### 4.1 MLP Backbone
 
-pip install -r requirements.txt
-Recommended environment:
+The base network is a fully connected multi-layer perceptron with ReLU activation.
 
-Python ≥ 3.9
+### 4.2 Physics-Informed Loss
 
-PyTorch ≥ 2.0
+The total loss function is defined as:
 
-🧠 Training
-Basic training:
+L = λ_data · L_data + λ_phys · L_phys
+
+where:
+- L_data is the mean squared error between predicted and measured pore pressure
+- L_phys is the physics-informed regularization term
+
+---
+
+## 5. Configuration
+
+Model and training parameters are defined in `config.yaml`.
+
+Key parameters include:
+
+```yaml
+model:
+  name: mlp
+  hidden_dims: [64, 64, 64]
+
+training:
+  epochs: 2000
+  batch_size: 256
+  learning_rate: 0.001
+
+loss:
+  lambda_data: 1.0
+  lambda_phys: 1.0
+6. Training
+Run the training script:
 
 python train.py
-Using custom config:
+Training outputs are saved in the runs/ directory.
 
-python train.py --config config.yaml
-🔎 Prediction
-python predict.py --model checkpoints/best_model.pt
-📈 Bayesian Optimization
-To automatically tune hyperparameters:
+7. Prediction
+Run inference on unseen wells:
+
+python predict.py
+Predicted pore pressure curves are generated along depth.
+
+8. Bayesian Optimization
+Hyperparameters can be optimized using Bayesian optimization:
 
 python bayes_opt.py
-Optimized parameters include:
-
-Learning rate
-
-Network depth and width
-
-Physics loss weight λ
-
-Eaton exponent (optional)
-
-🛢 Applications
-Abnormal pore pressure prediction
-
-Drilling safety and well planning
-
-Geomechanical modeling
-
-Data-scarce basin analysis
-
-📚 Citation
-If this repository contributes to your research, please cite:
-
-@misc{Chen2026PINNPressure,
-  title={Physics-Informed Neural Network for Pore Pressure Prediction Using Eaton’s Equation},
-  author={Chen, Junlin},
-  year={2026},
-  note={GitHub repository}
-}
-🤝 Contributing
-Contributions are welcome:
-
-New physics constraints
-
-Additional well log features
-
-Improved optimization strategies
-
-Please open an issue or submit a pull request.
-
-📬 Contact
-Junlin Chen
-Geophysics & AI for Energy
-GitHub: https://github.com/GeoHydrocarbon
-
-
-
