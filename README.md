@@ -1,20 +1,3 @@
-PHPWord
-* {font-family: Arial; font-size: 10pt;}
-a.NoteRef {text-decoration: none;}
-hr {height: 1px; padding: 0; margin: 1em 0; border: 0; border-top: 1px solid #CCC;}
-table {border: 1px solid black; border-spacing: 0px; width : 100%;}
-td {border: 1px solid black;}
-.Normal {font-family: 'Times New Roman';}
-h1 {font-size: 22pt; font-weight: bold;}
-h2 {font-size: 14pt; font-weight: bold;}
-.Title {font-size: 16pt; font-weight: bold;}
-.标题 字符 {font-family: '宋体'; font-size: 16pt; font-weight: bold;}
-.标题 1 字符 {font-family: 'Times New Roman'; font-size: 22pt; font-weight: bold;}
-.标题 2 字符 {font-family: '宋体'; font-size: 14pt; font-weight: bold;}
-.图 {font-size: 9pt;}
-.图 字符 {font-family: 'Times New Roman'; font-size: 9pt;}
-.参考文献 {margin-top: 0; margin-bottom: 0;}
-.参考文献 字符 {font-family: 'Times New Roman';}
 PINN-MLP Pore Pressure Prediction
 
 📦 Repository: GeoHydrocarbon/PINN\_MLP\_Pp\_Pred
