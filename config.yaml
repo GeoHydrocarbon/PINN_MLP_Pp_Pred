@@ -1,7 +1,7 @@
 # Model parameters
 model:
   type: mlp             # options: lstm or mlp
-  input_size: 4         # feature order [Depth, AC, DEN, CN, LLD, GR]
+  input_size: 4         # feature order [Depth, AC, DEN, Ip]
   hidden_size: 256      # only used for LSTM-Phy
   num_layers: 3         # only used for LSTM-Phy
   dropout: 0.15
