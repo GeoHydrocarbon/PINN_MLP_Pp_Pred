@@ -1,0 +1,37 @@
+# Model parameters
+model:
+  type: mlp             # options: lstm or mlp
+  input_size: 4         # feature order [Depth, AC, DEN, CN, LLD, GR]
+  hidden_size: 256      # only used for LSTM-Phy
+  num_layers: 3         # only used for LSTM-Phy
+  dropout: 0.15
+  mlp_hidden_sizes: [256, 64]   # only used for MLP-Phy
+
+# Data settings
+data:
+  csv_file: "data/processed/N873_fortrain_Ip.csv"
+  sequence_length: 10
+  train_ratio: 0.8
+
+# Training
+training:
+  batch_size: 32
+  epochs: 100
+  learning_rate: 0.001
+  data_weight: 0.9
+  seed: 42
+  grad_clip: 1.0
+  early_stopping_patience: 15
+  scheduler:
+    patience: 10
+    factor: 0.5
+    min_lr: 1.0e-5
+
+# Physics constraints and Eaton formula parameters
+physics:
+  eaton_exponent: 2
+  fluid_density: 1.03    # g/cm3
+  gravity: 9.8           # m/s2
+  rho_rock: 2.35         # g/cm3, used for Pv = rho_rock * gravity * Depth / 1000
+  nac_a: -0.0001995             # coefficient a in nAC = exp(a * Depth + b)
+  nac_b: 5.0099             # offset b in nAC = exp(a * Depth + b)

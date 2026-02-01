@@ -1,0 +1,50 @@
+{
+  "N873_fortrain_lstm": {
+    "alias": "N873_fortrain_lstm",
+    "run_dir": "runs\\20251127_203500_N873_fortrain_lstm",
+    "checkpoint_path": "runs\\20251127_203500_N873_fortrain_lstm\\best_model.pth",
+    "config_path": "runs\\20251127_203500_N873_fortrain_lstm\\config.yaml",
+    "scaler_path": "runs\\20251127_203500_N873_fortrain_lstm\\scaler.pkl",
+    "model_type": "lstm",
+    "data_csv": "data/raw/N873_fortrain.csv",
+    "run_name": "20251127_203500_N873_fortrain_lstm",
+    "created_at": "2025-11-27T20:35:00",
+    "best_val_loss": 0.6230343260935375
+  },
+  "N873_fortrain_mlp": {
+    "alias": "N873_fortrain_mlp",
+    "run_dir": "runs\\20251201_170424_N873_fortrain_mlp",
+    "checkpoint_path": "runs\\20251201_170424_N873_fortrain_mlp\\best_model.pth",
+    "config_path": "runs\\20251201_170424_N873_fortrain_mlp\\config.yaml",
+    "scaler_path": "runs\\20251201_170424_N873_fortrain_mlp\\scaler.pkl",
+    "model_type": "mlp",
+    "data_csv": "data/processed/N873_fortrain.csv",
+    "run_name": "20251201_170424_N873_fortrain_mlp",
+    "created_at": "2025-12-01T17:04:24",
+    "best_val_loss": 0.7697003483772278
+  },
+  "W580_fortrain_mlp": {
+    "alias": "W580_fortrain_mlp",
+    "run_dir": "runs\\20251128_082554_W580_fortrain_mlp",
+    "checkpoint_path": "runs\\20251128_082554_W580_fortrain_mlp\\best_model.pth",
+    "config_path": "runs\\20251128_082554_W580_fortrain_mlp\\config.yaml",
+    "scaler_path": "runs\\20251128_082554_W580_fortrain_mlp\\scaler.pkl",
+    "model_type": "mlp",
+    "data_csv": "data/raw/W580_fortrain.csv",
+    "run_name": "20251128_082554_W580_fortrain_mlp",
+    "created_at": "2025-11-28T08:25:54",
+    "best_val_loss": 0.10838136076927185
+  },
+  "N873_fortrain_Ip_mlp": {
+    "alias": "N873_fortrain_Ip_mlp",
+    "run_dir": "runs\\20251201_212542_N873_fortrain_Ip_mlp",
+    "checkpoint_path": "runs\\20251201_212542_N873_fortrain_Ip_mlp\\best_model.pth",
+    "config_path": "runs\\20251201_212542_N873_fortrain_Ip_mlp\\config.yaml",
+    "scaler_path": "runs\\20251201_212542_N873_fortrain_Ip_mlp\\scaler.pkl",
+    "model_type": "mlp",
+    "data_csv": "data/processed/N873_fortrain_Ip.csv",
+    "run_name": "20251201_212542_N873_fortrain_Ip_mlp",
+    "created_at": "2025-12-01T21:25:42",
+    "best_val_loss": 0.6365337946585247
+  }
+}
